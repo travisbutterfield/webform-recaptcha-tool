@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * @file
+ * Install and uninstall functions for the webform_captcha module.
+ */
+
+/**
+ * Implements of hook_install().
+ */
+function webform_captcha_install() {
+}
+
+/**
+ * Implements of hook_uninstall().
+ */
+function webform_captcha_uninstall() {
+  cache_clear_all('variables', 'cache');
+}

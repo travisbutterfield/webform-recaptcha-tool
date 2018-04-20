@@ -1,0 +1,8 @@
+name = Webform Captcha
+description = A custom module for placing a captcha on all webforms
+core = 7.x
+version = "7.x-1.0"
+
+; Dependencies
+dependencies[] = captcha
+dependencies[] = webform

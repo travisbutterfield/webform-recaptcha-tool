@@ -1,0 +1,52 @@
+<?php
+/**
+ * @file
+ * A custom module for placing a captcha on all webforms
+ */
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path
+ *   Which path of the site we're using to display help
+ * @param arg
+ *   Array that holds the current path as returned from arg() function
+ */
+	function webform_captcha_help($path, $arg) {
+		switch ($path) {
+			case "admin/help#webform_captcha":
+				$output = t("<p> A custom module for placing a captcha on all webforms</p>");
+				return $output;
+			break;
+			case 'admin/config/system/webform_captcha':
+				if (module_exists('help')) {
+					$help_text =  t("More help can be found at <a href=\"!help\">webform_captcha help</a>.", array('!help' => url('admin/help/webform_captcha')));
+				}
+				else {
+					$help_text = '';
+				}
+				$output = "<p>" . t("A custom module for placing a captcha on all webforms") . " $help_text</p>";
+				return $output;
+			break;
+			}
+	}
+
+
+/**
+ * Implement hook_form_alter().
+ */
+	function webform_captcha_form_alter(&$form, &$form_state, $form_id) {
+
+	/*Add CAPTCHA to all webforms so don't have to add each one by id.
+	  Check to see if it is any webform, regardless of ID
+	  Also check to see if user has 'skip CAPTCHA' permissions */
+	if ((strstr($form_id, 'webform_client_form')) && !(user_access('skip CAPTCHA'))) {
+		$form['captcha'] = array(
+			'#type' => 'captcha',
+			// default captcha type set at
+			'#captcha_type' => 'default',
+		);
+	}
+}

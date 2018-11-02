@@ -5,4 +5,5 @@ version = "7.x-1.0"
 
 ; Dependencies
 dependencies[] = captcha
+dependencies[] = recaptcha
 dependencies[] = webform
